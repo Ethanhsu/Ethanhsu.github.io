@@ -17,7 +17,7 @@ jobs:
 
       - name: Clone web-adb-tool
         run: |
-          git clone https://github.com/Ethanhsu/web-adb-inspector.git ../web-adb-tool
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Ethanhsu/web-adb-inspector.git ../web-adb-tool
 
       - name: Setup Node
         uses: actions/setup-node@v4
