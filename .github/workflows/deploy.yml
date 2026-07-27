@@ -15,9 +15,12 @@ jobs:
       - name: Checkout this repo (Ethanhsu.github.io)
         uses: actions/checkout@v4
 
-      - name: Clone web-adb-tool
-        run: |
-          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Ethanhsu/web-adb-inspector.git ../web-adb-tool
+      - name: Checkout web-adb-tool
+        uses: actions/checkout@v4
+        with:
+          repository: Ethanhsu/web-adb-inspector
+          path: ../web-adb-tool
+          ref: master
 
       - name: Setup Node
         uses: actions/setup-node@v4
