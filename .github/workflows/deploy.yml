@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  packages: read
 
 jobs:
   build-and-deploy:
@@ -16,12 +15,9 @@ jobs:
       - name: Checkout this repo (Ethanhsu.github.io)
         uses: actions/checkout@v4
 
-      - name: Checkout web-adb-tool
-        uses: actions/checkout@v4
-        with:
-          repository: Ethanhsu/web-adb-inspector
-          path: web-adb-tool
-          ref: master
+      - name: Clone web-adb-tool
+        run: |
+          git clone https://github.com/Ethanhsu/web-adb-inspector.git ../web-adb-tool
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -29,7 +25,7 @@ jobs:
           node-version: lts/*
 
       - name: Install & build
-        working-directory: web-adb-tool
+        working-directory: ../web-adb-tool
         run: |
           npm ci
           node build.mjs
@@ -37,7 +33,7 @@ jobs:
       - name: Copy built files
         run: |
           rm -f index.html bundle.js bundle.js.map
-          cp -f web-adb-tool/dist/* .
+          cp -f ../web-adb-tool/dist/* .
 
       - name: Commit & push if changed
         run: |
